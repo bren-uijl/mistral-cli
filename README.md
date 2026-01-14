@@ -18,7 +18,7 @@ Terminal Interface: Includes a sleek rainbow-colored ASCII intro and real-time l
 
 ### Clone the repository:
 
-`git clone [https://github.com/bren-uijl/mistral-cli.git](https://github.com/bren-uijl/mistral-cli.git)`
+`git clone https://github.com/bren-uijl/mistral-cli.git`
 
 `cd mistral-cli`
 
