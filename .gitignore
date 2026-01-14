@@ -1,0 +1,12 @@
+# Negeer systeem bestanden
+.DS_Store
+
+# Negeer API keys en configuraties
+.env
+my_secrets.sh
+
+# Negeer tijdelijke bestanden van jouw script
+*.ai_history.json
+*.ai_code.py
+*.png
+__pycache__/
