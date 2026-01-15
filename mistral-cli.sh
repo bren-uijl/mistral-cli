@@ -2,29 +2,34 @@ ai() {
     local key_file="$HOME/.mistral_key"
     local api_key=""
 
-    # 1. Check if the key is in a file
+    # 1. Check if the key is stored in a file
     if [ -f "$key_file" ]; then
         api_key=$(cat "$key_file")
     fi
 
     # 2. If there's no key, ask for it
     if [ -z "$api_key" ]; then
-        echo -e "\033[33m[!] Geen API-key gevonden.\033[0m"
-        echo -n "Voer je Mistral API-key in: "
-        read -rs input_key  # Added 'r' flag to prevent backslash interpretation
+        echo -e "\033[33m[!] No API key found.\033[0m"
+        echo -n "Please enter your Mistral API key: "
+        read -r input_key  # Removed the 's' flag to make input visible
         echo "" # New line after input
-        
+
         if [ -z "$input_key" ]; then
-            echo "Fout: Geen key ingevoerd."
+            echo "Error: No key entered."
             return 1
         fi
-        
-        # Save to file
-        mkdir -p "$(dirname "$key_file")"  # Ensure directory exists
+
+        # Basic key validation (e.g., length)
+        if [ ${#input_key} -lt 32 ]; then
+            echo "Error: The entered key does not appear to be valid (too short)."
+            return 1
+        fi
+
+        # Save the key to the file
         echo "$input_key" > "$key_file"
-        chmod 600 "$key_file" # Only you can read this file
+        chmod 600 "$key_file"  # Set permissions for security
         api_key="$input_key"
-        echo -e "\033[32m[+] Key veilig opgeslagen in $key_file\033[0m"
+    fi
     fi
     local selected_model="mistral-tiny"
     local is_code_mode=false
