@@ -22,14 +22,9 @@ Terminal Interface: Includes a sleek rainbow-colored ASCII intro and real-time l
 
 `cd mistral-cli`
 
-
 ### Make the script executable:
 
 `chmod +x mistral_cli.sh`
-
-
-### Add it to your shell (Optional):
-You can source the file in your ~/.bashrc or ~/.zshrc to make the ai command available everywhere:
 
 `source /path/to/mistral_chat.sh`
 
@@ -63,7 +58,7 @@ Your key is saved locally in `~/.mistral_key`. This file is ignored by Git to en
 
 ### Curl
 
-### Mistral API Key (Get one at console.mistral.ai)
+### Mistral API Key (Get one FOR FREE at console.mistral.ai)
 
 ## Security and Privacy
 
