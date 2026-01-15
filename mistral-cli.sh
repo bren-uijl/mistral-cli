@@ -2,26 +2,27 @@ ai() {
     local key_file="$HOME/.mistral_key"
     local api_key=""
 
-    # 1. Check of de key in een bestand staat
+    # 1. Check if the key is in a file
     if [ -f "$key_file" ]; then
         api_key=$(cat "$key_file")
     fi
 
-    # 2. Als er geen key is, vraag erom
+    # 2. If there's no key, ask for it
     if [ -z "$api_key" ]; then
         echo -e "\033[33m[!] Geen API-key gevonden.\033[0m"
         echo -n "Voer je Mistral API-key in: "
-        read -s input_key
-        echo "" # Nieuwe regel na invoer
+        read -rs input_key  # Added 'r' flag to prevent backslash interpretation
+        echo "" # New line after input
         
         if [ -z "$input_key" ]; then
             echo "Fout: Geen key ingevoerd."
             return 1
         fi
         
-        # Opslaan in het bestand
+        # Save to file
+        mkdir -p "$(dirname "$key_file")"  # Ensure directory exists
         echo "$input_key" > "$key_file"
-        chmod 600 "$key_file" # Alleen jij mag dit bestand lezen
+        chmod 600 "$key_file" # Only you can read this file
         api_key="$input_key"
         echo -e "\033[32m[+] Key veilig opgeslagen in $key_file\033[0m"
     fi
