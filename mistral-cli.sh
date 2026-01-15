@@ -51,7 +51,7 @@ ai() {
     # ------------------------------------
 
     # Logs
-    local logs=("\033[31m[!!] CRITICAL ERROR:\033[0m USER TOO AWESOME FOR STANDARD CHAT." "[!!] ATTEMPTING WORKAROUND... [OK]" "\033[31m[!!] WARNING: THIS TERMINAL MAY CONTAIN TRACES OF PUNNY JOKES\033[0m." "[!!] LOADING... 99% (STUCK HERE FOR DRAMATIC EFFECT)" "[\033[32m▰\033[0m▱▱▱▱▱▱▱▱▱] 10% (Finding the right words...)" "[\033[32m▰▰▰\033[0m▱▱▱▱▱▱▱] 30% (Compiling your thoughts...)" "[\033[32m▰▰▰▰▰▰\033[0m▱▱▱▱] 60% (Debugging typos...)" "[\033[32m▰▰▰▰▰▰▰▰▰\033[0m▱] 90% (Almost there!)" "[\033[32m▰▰▰▰▰▰▰▰▰▰\033[0m] 100% (Ready to chat!)" "\033[31m[!!] JUST KIDDING! WELCOME.\033[0m")
+    local logs=("\033[38;2;255;0;128m[!!] CRITICAL ERROR:\033[0m USER TOO AWESOME FOR STANDARD CHAT." "[!!] ATTEMPTING WORKAROUND... [OK]" "\033[38;2;255;0;128m[!!] WARNING: THIS TERMINAL MAY CONTAIN TRACES OF PUNNY JOKES\033[0m." "[!!] LOADING... 99% (STUCK HERE FOR DRAMATIC EFFECT)" "[\033[32m▰\033[0m▱▱▱▱▱▱▱▱▱] 10% (Finding the right words...)" "[\033[32m▰▰▰\033[0m▱▱▱▱▱▱▱] 30% (Compiling your thoughts...)" "[\033[32m▰▰▰▰▰▰\033[0m▱▱▱▱] 60% (Debugging typos...)" "[\033[32m▰▰▰▰▰▰▰▰▰\033[0m▱] 90% (Almost there!)" "[\033[32m▰▰▰▰▰▰▰▰▰▰\033[0m] 100% (Ready to chat!)" "\033[38;2;255;0;128m[!!] JUST KIDDING! WELCOME.\033[0m")
     for log in "${logs[@]}"; do echo -e "[$(date +'%H:%M:%S')] ${log}"; sleep 2; done
 
 echo -e " .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
