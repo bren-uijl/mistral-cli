@@ -25,7 +25,7 @@ Terminal Interface: Includes a sleek rainbow-colored ASCII intro and real-time l
 
 ### Make the script executable:
 
-`chmod +x mistral_chat.sh`
+`chmod +x mistral_cli.sh`
 
 
 ### Add it to your shell (Optional):
