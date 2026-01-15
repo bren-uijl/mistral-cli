@@ -30,7 +30,6 @@ ai() {
         chmod 600 "$key_file"  # Set permissions for security
         api_key="$input_key"
     fi
-    fi
     local selected_model="mistral-tiny"
     local is_code_mode=false
     local direct_exec=false
