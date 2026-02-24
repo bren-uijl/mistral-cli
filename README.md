@@ -1,69 +1,88 @@
 # Mistral CLI
 
-A powerful and interactive Bash-based CLI tool to chat with Mistral AI models directly from your terminal. It features built-in chat history, a specialized "Code Mode," and the ability to execute generated Python code on the fly.
+A practical Bash CLI to chat with Mistral models directly from your terminal.
 
-## Features
+## What was improved
 
-Interactive Chat: Chat with AI without leaving your command line.
-
-Code Mode: Use the -c flag to switch to codestral-latest for programming tasks.
-
-Auto-Execution: Generated Python snippets (including Matplotlib plots) can be executed directly from the prompt.
-
-Secure API Storage: The script prompts for your API key once and saves it securely in a local file.
-
-Terminal Interface: Includes a sleek rainbow-colored ASCII intro and real-time loading logs.
+- Reliable option parsing with `--help`, `--reset-history`, and `--no-banner`.
+- API key support via `MISTRAL_API_KEY` (with fallback to `~/.mistral_key`).
+- Better CLI UI with colored prompts, compact status header, and a live `Thinking...` spinner.
+- Runtime tuning via flags and commands for:
+  - temperature
+  - max output tokens
+  - timestamps
+  - reasoning mode (`off|brief|full`)
+- Local coding tools:
+  - run shell commands locally (`/run`)
+  - run Python snippets locally (`/py`)
+  - attach local outputs to the next AI request (`/sendlocal`)
+- Session commands for better control:
+  - `/help`, `/clear`, `/history [n]`, `/status`
+  - `/model <name>`, `/code on|off`
+  - `/temperature <f>`, `/tokens <n>`, `/reasoning <mode>`
+  - `/local on|off`, `/run <cmd>`, `/py <code>`, `/sendlocal`
+  - `/retry`, `/quit`
+- Better handling of empty/non-JSON/API error responses.
+- Persistent chat history and safer request payload generation through temporary files.
 
 ## Installation
 
-### Clone the repository:
+```bash
+git clone https://github.com/bren-uijl/mistral-cli.git
+cd mistral-cli
+chmod +x mistral-cli.sh
+source ./mistral-cli.sh
+```
 
-`git clone https://github.com/bren-uijl/mistral-cli.git`
-
-`cd mistral-cli`
-
-### Make the script executable:
-
-`chmod +x mistral_cli.sh`
-
-`source /path/to/mistral_chat.sh`
-
+Tip: add `source /path/to/mistral-cli.sh` to your `.bashrc` or `.zshrc`.
 
 ## Usage
 
-### Simply type ai to start the session:
+Start a chat session:
 
-`ai`
+```bash
+ai
+```
 
+### Options
 
-## Flags and Arguments:
+```text
+-m, --model <name>       Use a specific model
+-c, --code               Enable code mode (model: codestral-latest)
+-d, --directly           Execute generated Python immediately
+    --temperature <f>    Set model temperature (0.0-2.0)
+    --max-tokens <n>     Set max output tokens
+    --reasoning <mode>   Reasoning mode: off|brief|full
+    --local-tools        Enable local run tools (/run, /py)
+    --timestamps         Show timestamps on assistant messages
+    --reset-history      Clear local history before startup
+    --no-banner          Skip startup logs/banner
+-h, --help               Show help
+```
 
-`ai -c` or `ai --code`: Enables Code Mode. Uses the Codestral model and hides long code blocks for a cleaner chat interface.
+### Environment variables
 
-`ai -d` or `ai --directly`: Executes generated code immediately without asking for confirmation.
+- `MISTRAL_API_KEY`: API key from environment (recommended for CI/servers).
+- `MISTRAL_KEY_FILE`: Key file path (default: `~/.mistral_key`).
+- `AI_HISTORY_FILE`: History file path (default: `~/.ai_history.json`).
+- `AI_MAX_HISTORY`: Number of stored history entries (default: `20`).
+- `AI_TEMPERATURE`: Default temperature (default: `0.7`).
+- `AI_MAX_TOKENS`: Default max output tokens (default: `1024`).
+- `AI_REASONING`: Default reasoning mode (`off|brief|full`).
+- `AI_TIMESTAMPS`: `true`/`false` assistant timestamps.
 
-`ai -m [model-name]`: Manually select a specific Mistral model (e.g., mistral-large-latest).
+## Local execution safety note
 
-## API Key Setup:
+`/run` and `/py` execute commands on your own machine and can change files. They are disabled by default and only work after enabling local tools (`--local-tools` or `/local on`).
 
-### On your first run, the script will ask:
-"Enter your Mistral API-key:"
-Your key is saved locally in `~/.mistral_key`. This file is ignored by Git to ensure your credentials are never uploaded.
+## Requirements
 
-## Prerequisites
+- Bash
+- Python 3
+- curl
+- Mistral API key
 
-### Bash (Git Bash, WSL, or Linux)
+## Security
 
-### Python 3 (required for JSON and code execution)
-
-### Curl
-
-### Mistral API Key (Get one FOR FREE at console.mistral.ai)
-
-## Security and Privacy
-
-### Your API key is stored in a hidden local file (~/.mistral_key) with restricted permissions (600).
-
-### Chat history is stored locally in ~/.ai_history.json.
-
-Powered by Mistral AI | Developed for the Terminal
+- If `MISTRAL_API_KEY` is not used, the API key is stored locally with `600` permissions.
+- Chat history is stored locally in JSON format.
